@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import ViewUser from "../users/ViewUser";
 
 
 export default function Home() {
   const [deps, setdeps] = useState([]);
+
+  const {id} = useParams()
 
   useEffect(() => {
     loaddeps();
@@ -14,6 +17,11 @@ export default function Home() {
     const result = await axios.get("http://localhost:1000/departments");
     setdeps(result.data);
   };
+
+  const deleteDepartment = async (id) => {
+    await axios.delete(`http://localhost:1000/departments/${id}`)
+    loaddeps()
+  }
 
   return (
     <div className="container">
@@ -40,9 +48,9 @@ export default function Home() {
                 <td>{dep.departmentCode}</td>
                 <td>{dep.departmentAddress}</td>
                 <td>
-                  <button className="btn btn-outline-info mx-2">View</button>
+                  <Link className="btn btn-outline-info mx-2" to={`/view/${dep.departmentId}`}>View</Link>
                   <Link className="btn btn-info mx-2" to={`/edit/${dep.departmentId}`}>Edit</Link>
-                  <button className="btn btn-danger mx-2">Delete</button>
+                  <button className="btn btn-danger mx-2" onClick={() => deleteDepartment(dep.departmentId)}>Delete</button>
                 </td>
               </tr>
             ))}
