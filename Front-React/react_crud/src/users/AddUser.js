@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Adddepartment() {
   let navigate = useNavigate();
@@ -72,9 +72,9 @@ export default function Adddepartment() {
             <button className="btn btn-outline-success" type="submit">
               Submit
             </button>
-            <button className="btn btn-outline-danger mx-3" type="submit">
+            <Link className="btn btn-outline-danger mx-3" to= "/">
               Cancel
-            </button>
+            </Link>
           </form>
         </div>
       </div>

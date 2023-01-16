@@ -1,5 +1,8 @@
 package com.dailyCodeBuffer.Springboottutorial.entity;
 
+import org.springframework.lang.NonNull;
+
+import jakarta.annotation.Nonnull;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -8,7 +11,7 @@ import jakarta.persistence.Id;
 @Entity
 public class Department {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     private Long DepartmentId;
     private String DepartmentName;
     private String DepartmentAddress;

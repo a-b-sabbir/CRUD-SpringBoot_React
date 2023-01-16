@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
+
 
 export default function Home() {
-  const [users, setUsers] = useState([]);
+  const [deps, setdeps] = useState([]);
 
   useEffect(() => {
-    loadUsers();
+    loaddeps();
   }, []);
 
-  const loadUsers = async () => {
+  const loaddeps = async () => {
     const result = await axios.get("http://localhost:1000/departments");
-    setUsers(result.data);
+    setdeps(result.data);
   };
 
   return (
@@ -20,6 +22,7 @@ export default function Home() {
           <thead>
             <tr>
               <th scope="col">SL No</th>
+              <th scope="col">Department ID</th>
               <th scope="col">Department Name</th>
               <th scope="col">Department Code</th>
               <th scope="col">Department Address</th>
@@ -27,17 +30,18 @@ export default function Home() {
             </tr>
           </thead>
           <tbody>
-            {users.map((user, index) => (
+            {deps.map((dep, index) => (
               <tr>
                 <th scope="row" key={index}>
                   {index + 1}
                 </th>
-                <td>{user.departmentName}</td>
-                <td>{user.departmentCode}</td>
-                <td>{user.departmentAddress}</td>
+                <td>{dep.departmentId}</td>
+                <td>{dep.departmentName}</td>
+                <td>{dep.departmentCode}</td>
+                <td>{dep.departmentAddress}</td>
                 <td>
                   <button className="btn btn-outline-info mx-2">View</button>
-                  <button className="btn btn-info mx-2">Edit</button>
+                  <Link className="btn btn-info mx-2" to={`/edit/${dep.departmentId}`}>Edit</Link>
                   <button className="btn btn-danger mx-2">Delete</button>
                 </td>
               </tr>
